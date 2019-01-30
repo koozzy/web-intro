@@ -1,0 +1,22 @@
+body{
+    padding:20px;
+}
+#title{
+    font-family:BankGothic Md BT;
+    font-size:34px;
+    color:#ba6b64;
+}
+#subtitle{
+    font-family:helvetica;
+    font-size:14px;
+    color:#e2b8b9;
+}
+li{
+    padding-bottom:20px;
+}
+#content{
+    padding:15px;
+    font-family:helvetica;
+    font-size:20px;
+    color:#756163;
+}
