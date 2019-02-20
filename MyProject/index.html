@@ -1,0 +1,123 @@
+@@ -0,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+	 <meta Charset="utf-8">
+	 <title>Huang Qiu Project 1 | Data Vis</title>
+			<script type="text/javascript" src="d3.js">
+			
+			</script>
+			<style type="text/css">
+			    #button1{
+			        font-family:helvetica;
+	                font-size:12px;
+	                color:#ffffff;
+	                text-align:center;
+	                padding:15px;
+	                background-color:#ca5670;
+	                width:70px;
+	                height:10px;
+	                border-radius:5px;
+	                letter-spacing:2px;
+	                cursor:pointer;
+			    }
+			</style>
+</head>
+		
+		
+		<body>
+         <div id="button1">Button 1</div>
+			<script type="text/javascript">
+				
+	            var w = 1500;
+	            var h = 1200;
+				var padding =10;
+
+
+	        //Imports a dataset from the file 
+			d3.csv("data.csv", function(data){
+                var rScale = d3.scaleLinear()
+					 .domain([0, d3.max(data, function(d) { return d.Time; })])
+					 .range([5, 15]);
+ 
+		//Create SVG element
+		var svg = d3.select("body")
+					.append("svg")
+					.attr("width", w)
+					.attr("height", h);
+		 		svg.selectAll("circle")
+		 		   .data(data)
+		 		   .enter()
+		 		   .append("circle")
+		 		   .attr("cx", function(d) {return d.Day*70+padding})
+		 		   .attr("cy", function(d) {return d.SubN*100
+		 		   })
+		 		   .attr("r", function(d) {
+					   return rScale(d.Time);
+		 		   })
+	//graphic style
+				   			   .attr("opacity",.8)			             .attr("fill",function(d,i){
+				   if(d.SubN<2){
+					   return "#003C57"}
+				   else if(d.SubN<3){
+					   return "#E84D95"}  
+			       else if(d.SubN<4){
+                   return "#77C7BD"} 
+			       else {
+                   return "#ADB7C9"}  
+		   });
+
+		 		//Create labels
+		 		svg.selectAll("text")
+		 		   .data(data)
+		 		   .enter()
+		 		   .append("text")
+		 		   .text(function(d) {
+		 			   return d.Time + "," + d.Day;
+		 		   })
+		 		   .attr("x", function(d) {
+		 		   		return d.Day*70;
+		 		   })
+		 		   .attr("y", function(d) {
+		 		   		return d.SubN*100;
+		 		   })
+		 		   .attr("font-family", "sans-serif")
+		 		   .attr("font-size", "11px")
+				   .attr("text-align", "center")
+		 		   .attr("fill", "red");
+		});
+
+		//Interactive Button
+              d3.select("#button1")
+                .on("mouseover",function(){
+                    //this means the button itself, changes its background color to red
+                    d3.select(this)
+                    .transition()
+                    .duration(1000)
+                     .style("background-color","#638ccc")
+                    
+                    //this part changes the circles
+                    d3.selectAll("circle")
+                    .transition()
+                    .duration(500)
+					.attr("cx",function(){
+					                        return Math.random()*w})
+					                    .attr("cy",function(){
+					                        return Math.random()*h})
+														
+             })
+                .on("mouseout",function(){
+                    //changes the color of the button itself back
+                    d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .style("background-color","#ca5670")
+             
+			//end of button code     
+
+		    });
+		   
+		   </script>
+		</body>
+	</html>
+	 
